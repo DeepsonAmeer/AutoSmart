@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "682044846548",
+    "project_id": "autosmart-e5a0e",
+    "storage_bucket": "autosmart-e5a0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682044846548:android:fe8eac1c7ff7f56c2ea641",
+        "android_client_info": {
+          "package_name": "com.example.autosmart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLJRnhwA_SyFPbBoDbMuOcQlgPaEFjf6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
