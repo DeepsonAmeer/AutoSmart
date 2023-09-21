@@ -32,7 +32,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             make = itemView.findViewById(R.id.Make_txt);
-            engineer = itemView.findViewById(R.id.engineer_txt);
             status = itemView.findViewById(R.id.status_txt);
             sc = itemView.findViewById(R.id.recycler_linear);
         }
@@ -59,14 +58,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.make.setText(notifications.get(position).getMake());
         holder.engineer.setText(notifications.get(position).getEngineer());
         holder.status.setText(notifications.get(position).getStatus());
-        if(Objects.equals(notifications.get(position).Status, "In Progress")){
-            holder.sc.setBackgroundColor(ContextCompat.getColor(context.getApplicationContext(), R.color.blue));
-        } else if (Objects.equals(notifications.get(position).Status, "Completed")) {
-            holder.sc.setBackgroundColor(ContextCompat.getColor(context.getApplicationContext(), R.color.green));
-        }
-        else {
-            holder.sc.setBackgroundColor(ContextCompat.getColor(context.getApplicationContext(), R.color.yellow));
-        }
+
     }
 
     @Override

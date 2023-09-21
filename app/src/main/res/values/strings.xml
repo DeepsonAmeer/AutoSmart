@@ -2,4 +2,7 @@
     <string name="app_name">AutoSmart</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="comment">Please select a specific service, and kindly provide feedback on the
+        associated engineer performance.
+    </string>
 </resources>
