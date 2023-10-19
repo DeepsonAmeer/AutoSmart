@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".RequestActivity">
 
@@ -15,85 +15,102 @@
         android:fontFamily="@font/aldrich"
         android:text="CUSTOMER CAR DETAILS"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
-    <Space
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        app:cardElevation="5dp">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/aldrich"
-        android:text="Car make" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/input_design"
-        android:ems="10"
-        android:fontFamily="@font/aldrich"
-        android:hint="E.g Mercedes"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:textColorHint="@color/darkdark" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:text="Car make" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/aldrich"
-        android:text="Car model" />
+            <EditText
+                android:id="@+id/editTextTextEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_radius"
+                android:ems="10"
+                android:fontFamily="@font/aldrich"
+                android:hint="E.g Mercedes"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:textColorHint="@color/darkgray" />
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/input_design"
-        android:ems="10"
-        android:fontFamily="@font/aldrich"
-        android:hint="E.g C-class"
-        android:inputType="text"
-        android:padding="10dp"
-        android:textColorHint="@color/darkdark" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:text="Car model" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/aldrich"
-        android:text="Fault Description" />
+            <EditText
+                android:id="@+id/editTextTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_radius"
+                android:ems="10"
+                android:fontFamily="@font/aldrich"
+                android:hint="E.g C-class"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColorHint="@color/darkgray" />
 
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/input_design"
-        android:ems="10"
-        android:padding="10dp"
-        android:hint="E.g Engine overheating"
-        android:inputType="text" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aldrich"
+                android:text="Fault Description" />
+
+            <EditText
+                android:id="@+id/editTextText"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/corner_radius"
+                android:ems="10"
+                android:hint="E.g Engine overheating"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="@color/yellow"
+                android:textColorHint="@color/darkgray" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
 
 
+            <Button
+                android:id="@+id/request_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/request_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit" />
+
 </LinearLayout>

@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blue"
+        android:backgroundTint="#0532A8"
         android:orientation="vertical">
 
         <Space
@@ -62,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:text="Book Services"
+                        android:text="Choose the service you require"
                         android:textColor="#FFFDFD"
                         android:textSize="24sp" />
                 </LinearLayout>

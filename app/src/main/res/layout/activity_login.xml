@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/oysterbay"
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
@@ -27,7 +27,7 @@
             android:fontFamily="@font/aldrich"
             android:text="Welcome back"
             android:textAlignment="center"
-            android:textColor="@color/blue"
+            android:textColor="@color/black"
             android:textSize="34sp" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:hint="Email"
             android:textColorHint="@color/blue"
-            app:boxBackgroundColor="@color/darkgray"
+            app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/blue"
             app:boxStrokeWidth="0dp"
             app:hintTextColor="@color/blue"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:hint="Password"
             android:textColorHint="@color/blue"
-            app:boxBackgroundColor="@color/darkgray"
+            app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/blue"
             app:boxStrokeWidth="0dp"
             app:endIconMode="password_toggle"
@@ -96,7 +96,9 @@
             android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login" />
+            android:text="Login"
+            android:textColor="@color/white"
+            app:strokeColor="@color/white" />
 
         <Space
             android:layout_width="match_parent"
