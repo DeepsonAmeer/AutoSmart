@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/aldrich"
-        android:text="CUSTOMER CAR DETAILS"
+        android:text="TOWING SERVICE"
         android:textAlignment="center"
         android:textColor="@color/blue"
         android:textSize="20sp" />
@@ -42,7 +42,7 @@
                 android:text="Car make" />
 
             <EditText
-                android:id="@+id/CarMake_edit"
+                android:id="@+id/T_CarMake_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/corner_background"
@@ -65,7 +65,7 @@
                 android:text="Car model" />
 
             <EditText
-                android:id="@+id/CarModel_edit"
+                android:id="@+id/T_CarModel_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/corner_background"
@@ -88,7 +88,7 @@
                 android:text="Fault Description" />
 
             <EditText
-                android:id="@+id/Desc_edit"
+                android:id="@+id/T_Desc_edit"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/corner_background"
@@ -111,7 +111,7 @@
                 android:text="Location" />
 
             <EditText
-                android:id="@+id/Location_edit"
+                android:id="@+id/T_Location_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/corner_background"
@@ -127,7 +127,7 @@
                 android:layout_height="30dp" />
 
             <Button
-                android:id="@+id/request_button"
+                android:id="@+id/towing_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Submit" />

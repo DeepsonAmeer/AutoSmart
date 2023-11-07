@@ -58,6 +58,7 @@
             app:startIconTint="@color/blue">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_email_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/aldrich" />
@@ -82,6 +83,7 @@
             app:startIconTint="@color/blue">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_pass_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:textInputLayoutFocusedRectEnabled="true"
@@ -93,7 +95,7 @@
             android:layout_height="80dp" />
 
         <Button
-            android:id="@+id/login_btn"
+            android:id="@+id/Register_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"

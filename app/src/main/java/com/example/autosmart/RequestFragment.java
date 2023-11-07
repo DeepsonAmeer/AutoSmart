@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -12,6 +13,10 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
@@ -35,6 +40,8 @@ public class RequestFragment extends Fragment {
     private String mParam2;
 
     RecyclerView recyclerView;
+
+    TabLayout tabLayout;
     public RequestFragment() {
         // Required empty public constructor
     }
@@ -70,33 +77,73 @@ public class RequestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_request, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        recyclerView = view.findViewById(R.id.recycler_request);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ServiceAdapter adapter = new ServiceAdapter(getContext());
-        ArrayList<Services> services = new ArrayList<>();
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.tab_fragment, new AllFragment())
+                .commit();
+//        recyclerView = view.findViewById(R.id.recycler_request);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        ServiceAdapter adapter = new ServiceAdapter(getContext());
+//        ArrayList<Services> services = new ArrayList<>();
+//
+//        Services services1 = new Services();
+//        services1.Name = "Toyota";
+//        services1.Description = "Engine overheating";
+//        services1.Status = "Ongoing";
+//        services1.Engineer = "SuperEngineer";
+//        services1.DateCreated = "02-02-2023";
+//        services.add(services1);
+//
+//        Services services2 = new Services();
+//        services2.Name = "Mercedes Benz";
+//        services2.Description = "Making unnecessary sounds, consuming lot of fuel";
+//        services2.Status = "Initiated";
+//        services2.Engineer = "Jon Snow";
+//        services2.DateCreated = "05-10-2023";
+//        services.add(services2);
+//        adapter.setServices(services);
+//        recyclerView.setAdapter(adapter);
 
-        Services services1 = new Services();
-        services1.Name = "Toyota";
-        services1.Description = "Engine overheating";
-        services1.Status = "Ongoing";
-        services1.Engineer = "SuperEngineer";
-        services1.DateCreated = "02-02-2023";
-        services.add(services1);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tabLayout.getSelectedTabPosition();
+                switch (position){
+                    case 0:
+                        requireActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.tab_fragment, new AllFragment())
+                                .commit();
+                        break;
+                    case 1:
+                        requireActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.tab_fragment, new RepairFragment())
+                                .commit();
+                        break;
+                    case 3:
+                        requireActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.tab_fragment, new TowingFragment())
+                                .commit();
+                        break;
+                }
+            }
 
-        Services services2 = new Services();
-        services2.Name = "Mercedes Benz";
-        services2.Description = "Making unnecessary sounds, consuming lot of fuel";
-        services2.Status = "Initiated";
-        services2.Engineer = "Jon Snow";
-        services2.DateCreated = "05-10-2023";
-        services.add(services2);
-        adapter.setServices(services);
-        recyclerView.setAdapter(adapter);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         super.onViewCreated(view, savedInstanceState);
     }
 }

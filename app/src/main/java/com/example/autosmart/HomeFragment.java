@@ -11,7 +11,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +32,9 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    CardView repair;
+    CardView repair,towing,guide,emergency;
+    TextView name;
+    private FirebaseAuth mAuth;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -74,11 +80,44 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         repair = view.findViewById(R.id.repair_card);
+        towing = view.findViewById(R.id.towing_card);
+        guide = view.findViewById(R.id.guide_card);
+        emergency = view.findViewById(R.id.emerg_card);
+        name = view.findViewById(R.id.textView3);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            // if the user is not null then we are
+            // opening a main activity on below line.
+            name.setText("Hello "+user.getEmail());
+            //requireActivity().finish();
+        }
         repair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(),RequestActivity.class);
                 startActivity(intent);
+            }
+        });
+        towing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(),TowingActivity.class);
+                startActivity(i);
+            }
+        });
+        guide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(),RepairActivity.class);
+                startActivity(i);
+            }
+        });
+        emergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(),EmergencyActivity.class);
             }
         });
         super.onViewCreated(view, savedInstanceState);

@@ -1,23 +1,40 @@
 package com.example.autosmart;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONArray;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +44,9 @@ public class LoginActivity extends AppCompatActivity {
     ImageView gbtn;
     TextView rbtn;
     Button lbtn;
+    EditText email,password;
+    private FirebaseAuth mAuth;
+    SharedPreferences UserEmail;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +54,15 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
+        FirebaseApp.initializeApp(this);
+        mAuth = FirebaseAuth.getInstance();
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(this,gso);
+        email = (EditText) findViewById(R.id.login_email_edit);
+        password = (EditText) findViewById(R.id.login_pass_edit);
         rbtn = (TextView) findViewById(R.id.regi_btn);
-        lbtn = (Button) findViewById(R.id.login_btn);
+        lbtn = (Button) findViewById(R.id.Register_btn);
+        UserEmail = getSharedPreferences("email", Context.MODE_PRIVATE);
+
 
         rbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,35 +76,53 @@ public class LoginActivity extends AppCompatActivity {
         lbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this,Home.class);
-                startActivity(i);
+
+                String userName = email.getText().toString();
+                String pwd = password.getText().toString();
+                if (TextUtils.isEmpty(userName) && TextUtils.isEmpty(pwd)) {
+                    Toast.makeText(LoginActivity.this, "Please enter your credentials..", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // on below line we are calling a sign in method and passing email and password to it.
+                mAuth.signInWithEmailAndPassword(userName, pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        // on below line we are checking if the task is success or not.
+                        if (task.isSuccessful()) {
+                            // on below line we are hiding our progress bar.
+                            SharedPreferences.Editor editor = UserEmail.edit();
+                            editor.putString("email_key", email.getText().toString()).commit();
+                            Toast.makeText(LoginActivity.this, "Login Successful..", Toast.LENGTH_SHORT).show();
+                            // on below line we are o"pening our mainactivity.
+                            Intent i = new Intent(LoginActivity.this, Home.class);
+                            startActivity(i);
+                            // requireActivity().finish();
+                        } else {
+                            // hiding our progress bar and displaying a toast message.
+                            Toast.makeText(LoginActivity.this, "Please enter valid user credentials..", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
             }
         });
+
     }
 
-     void SignIn() {
-        Intent signinIntent = gsc.getSignInIntent();
-        startActivityForResult(signinIntent,1000);
-    }
-
-    private void startActivityForResult(int requestCode,int resultCode,Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
-        if(requestCode==1000){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
-            try {
-                task.getResult(ApiException.class);
-                //NavigateToSecondActivity();
-                Toast.makeText(getApplicationContext(),"Login successful",Toast.LENGTH_LONG).show();
-            }catch (ApiException e){
-                Toast.makeText(getApplicationContext(),"Something went wrong",Toast.LENGTH_LONG).show();
-            }
+    public void onStart() {
+        super.onStart();
+        // in on start method checking if
+        // the user is already sign in.
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            // if the user is not null then we are
+            // opening a main activity on below line.
+            Intent i = new Intent(LoginActivity.this, Home.class);
+            startActivity(i);
+            //requireActivity().finish();
         }
+
     }
 
-    void NavigateToSecondActivity() {
-        finish();
-        Intent intent = new Intent(LoginActivity.this,Home.class);
-        startActivity(intent);
-    }
+
 }

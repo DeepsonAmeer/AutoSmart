@@ -34,104 +34,88 @@
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <EditText
+            android:id="@+id/r_name_edit"
+            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Full name"
-            android:textColorHint="@color/blue"
-            app:boxBackgroundColor="@color/darkgray"
-            app:boxStrokeColor="@color/blue"
-            app:boxStrokeWidth="0dp"
-            app:hintTextColor="@color/blue"
-            app:startIconDrawable="@drawable/baseline_person_24"
-            app:startIconTint="@color/blue">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:maxLines="1"
+            android:inputType="text"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:layout_weight="5"
+            android:layout_height="50dp"
+            android:drawableTint="@color/blue"
+            android:background="@drawable/corner_background"
+            android:drawableStart="@drawable/baseline_person_24"
+            android:drawablePadding="10dp"
+            android:hint="Full name"/>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <EditText
+            android:id="@+id/r_email_edit"
+            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:textColorHint="@color/blue"
-            app:boxBackgroundColor="@color/darkgray"
-            app:boxStrokeColor="@color/blue"
-            app:boxStrokeWidth="0dp"
-            app:hintTextColor="@color/blue"
-            app:startIconDrawable="@drawable/baseline_email_24"
-            app:startIconTint="@color/blue">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:maxLines="1"
+            android:inputType="text"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:layout_weight="5"
+            android:layout_height="50dp"
+            android:drawableTint="@color/blue"
+            android:background="@drawable/corner_background"
+            android:drawableStart="@drawable/baseline_email_24"
+            android:drawablePadding="10dp"
+            android:hint="Email"/>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+        <EditText
+            android:id="@+id/r_pass_edit"
+            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:textColorHint="@color/blue"
-            app:boxBackgroundColor="@color/darkgray"
-            app:boxStrokeColor="@color/blue"
-            app:boxStrokeWidth="0dp"
-            app:endIconMode="password_toggle"
-            app:hintTextColor="@color/blue"
-            app:startIconDrawable="@drawable/baseline_lock_24"
-            app:startIconTint="@color/blue">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:textInputLayoutFocusedRectEnabled="true"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:maxLines="1"
+            android:inputType="text"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:layout_weight="5"
+            android:layout_height="50dp"
+            android:drawableTint="@color/blue"
+            android:background="@drawable/corner_background"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:drawablePadding="10dp"
+            android:hint="Password"/>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+        <EditText
+            android:id="@+id/r_con_edit"
+            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Confirm password"
-            android:textColorHint="@color/blue"
-            app:boxBackgroundColor="@color/darkgray"
-            app:boxStrokeColor="@color/blue"
-            app:boxStrokeWidth="0dp"
-            app:endIconMode="password_toggle"
-            app:hintTextColor="@color/blue"
-            app:startIconDrawable="@drawable/baseline_lock_24"
-            app:startIconTint="@color/blue">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:textInputLayoutFocusedRectEnabled="true"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:maxLines="1"
+            android:inputType="text"
+            android:scrollHorizontally="true"
+            android:ellipsize="end"
+            android:layout_weight="5"
+            android:layout_height="50dp"
+            android:drawableTint="@color/blue"
+            android:background="@drawable/corner_background"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:drawablePadding="10dp"
+            android:hint="Confirm password"/>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
         <Button
-            android:id="@+id/login_btn"
+            android:id="@+id/Register_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign up" />

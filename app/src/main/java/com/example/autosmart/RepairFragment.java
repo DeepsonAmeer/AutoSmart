@@ -2,11 +2,19 @@ package com.example.autosmart;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+
+import model.Services;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +31,7 @@ public class RepairFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    RecyclerView recyclerView;
 
     public RepairFragment() {
         // Required empty public constructor
@@ -60,5 +69,32 @@ public class RepairFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_repair, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        recyclerView = view.findViewById(R.id.repair_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        ServiceAdapter adapter = new ServiceAdapter(getContext());
+        ArrayList<Services> services = new ArrayList<>();
+
+        Services services1 = new Services();
+        services1.Name = "Toyota";
+        services1.Description = "Engine overheating";
+        services1.Status = "Ongoing";
+        services1.Engineer = "SuperEngineer";
+        services1.DateCreated = "02-02-2023";
+        services.add(services1);
+
+        Services services2 = new Services();
+        services2.Name = "Mercedes Benz";
+        services2.Description = "Making unnecessary sounds, consuming lot of fuel";
+        services2.Status = "Initiated";
+        services2.Engineer = "Jon Snow";
+        services2.DateCreated = "05-10-2023";
+        services.add(services2);
+        adapter.setServices(services);
+        recyclerView.setAdapter(adapter);
+        super.onViewCreated(view, savedInstanceState);
     }
 }

@@ -38,7 +38,7 @@
                 android:layout_margin="10dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/comment"
-                android:textColor="@color/darkgray"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView18"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -61,12 +61,14 @@
                 app:tabTextColor="@color/black">
 
                 <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="All" />
 
                 <com.google.android.material.tabs.TabItem
+                    android:id="@+id/repair_tab_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Repair" />
@@ -78,9 +80,15 @@
             </com.google.android.material.tabs.TabLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_request"
+        <FrameLayout
+            android:id="@+id/tab_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_request"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
     </LinearLayout>
 </FrameLayout>
