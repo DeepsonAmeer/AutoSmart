@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/blue"
     android:orientation="vertical"
     tools:context=".RequestActivity">
 
@@ -15,14 +15,15 @@
         android:fontFamily="@font/aldrich"
         android:text="CUSTOMER CAR DETAILS"
         android:textAlignment="center"
-        android:textColor="@color/blue"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:cardElevation="5dp">
+        app:cardBackgroundColor="@color/blue"
+        app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,26 +33,28 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="30dp" />
+                android:layout_height="80dp" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/aldrich"
-                android:text="Car make" />
+                android:text="Car make"
+                android:textColor="@color/white" />
 
             <EditText
                 android:id="@+id/CarMake_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/corner_background"
+                android:background="@drawable/login_corner"
                 android:ems="10"
                 android:fontFamily="@font/aldrich"
                 android:hint="E.g Mercedes"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
-                android:textColorHint="#727272" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/darkgray" />
 
             <Space
                 android:layout_width="match_parent"
@@ -62,18 +65,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/aldrich"
-                android:text="Car model" />
+                android:text="Car model"
+                android:textColor="@color/white" />
 
             <EditText
                 android:id="@+id/CarModel_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/corner_background"
+                android:background="@drawable/login_corner"
                 android:ems="10"
                 android:fontFamily="@font/aldrich"
                 android:hint="E.g C-class"
                 android:inputType="text"
                 android:padding="10dp"
+                android:textColor="@color/white"
                 android:textColorHint="@color/darkgray" />
 
             <Space
@@ -81,22 +86,23 @@
                 android:layout_height="10dp" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/n_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/aldrich"
-                android:text="Fault Description" />
+                android:text="Fault Description"
+                android:textColor="@color/white" />
 
             <EditText
                 android:id="@+id/Desc_edit"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="@drawable/corner_background"
+                android:background="@drawable/login_corner"
                 android:ems="10"
                 android:hint="E.g Engine overheating"
                 android:inputType="text"
                 android:padding="10dp"
-                android:textColor="@color/yellow"
+                android:textColor="@color/white"
                 android:textColorHint="@color/darkgray" />
 
             <Space
@@ -104,22 +110,23 @@
                 android:layout_height="10dp" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/n_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/aldrich"
-                android:text="Location" />
+                android:text="Location"
+                android:textColor="@color/white" />
 
             <EditText
                 android:id="@+id/Location_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/corner_background"
+                android:background="@drawable/login_corner"
                 android:ems="10"
                 android:hint="E.g Lagos"
                 android:inputType="text"
                 android:padding="10dp"
-                android:textColor="@color/yellow"
+                android:textColor="@color/white"
                 android:textColorHint="@color/darkgray" />
 
             <Space
@@ -130,6 +137,7 @@
                 android:id="@+id/request_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/CORAL"
                 android:text="Submit" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

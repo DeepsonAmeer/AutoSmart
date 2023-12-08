@@ -1,6 +1,8 @@
 package com.example.autosmart;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
     CardView repair,towing,guide,emergency;
     TextView name;
+    SharedPreferences sharedpreferences;
     private FirebaseAuth mAuth;
     public HomeFragment() {
         // Required empty public constructor
@@ -85,12 +88,16 @@ public class HomeFragment extends Fragment {
         emergency = view.findViewById(R.id.emerg_card);
         name = view.findViewById(R.id.textView3);
 
+        sharedpreferences = getActivity().getSharedPreferences("myref", Context.MODE_PRIVATE);
+
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             // if the user is not null then we are
             // opening a main activity on below line.
-            name.setText("Hello "+user.getEmail());
+            String n = sharedpreferences.getString("FullName","");
+            name.setText("Hello, "+n.toString());
             //requireActivity().finish();
         }
         repair.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +125,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(),EmergencyActivity.class);
+                startActivity(i);
             }
         });
         super.onViewCreated(view, savedInstanceState);

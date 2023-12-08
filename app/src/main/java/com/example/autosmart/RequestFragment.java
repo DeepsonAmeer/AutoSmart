@@ -84,7 +84,7 @@ public class RequestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         requireActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.tab_fragment, new AllFragment())
+                .replace(R.id.tab_fragment, new RepairFragment())
                 .commit();
 //        recyclerView = view.findViewById(R.id.recycler_request);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -115,17 +115,13 @@ public class RequestFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tabLayout.getSelectedTabPosition();
                 switch (position){
+
                     case 0:
-                        requireActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.tab_fragment, new AllFragment())
-                                .commit();
-                        break;
-                    case 1:
                         requireActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.tab_fragment, new RepairFragment())
                                 .commit();
                         break;
-                    case 3:
+                    case 1:
                         requireActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.tab_fragment, new TowingFragment())
                                 .commit();

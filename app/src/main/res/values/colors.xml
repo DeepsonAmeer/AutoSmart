@@ -7,9 +7,11 @@
     <color name="green">#25B571</color>
     <color name="yellow">#FD9519</color>
     <color name="gray">#EAF1FB</color>
-    <color name="darkgray">#727272</color>
+    <color name="darkgray">#D3D3D3</color>
     <color name="darkdark">#4CAF50</color>
     <color name="secondary">#FDC3C8</color>
     <color name="oysterbay">#ffffff</color>
     <color name="FRENCH">#9FC9DD</color>
+    <color name="MINT">#8FFFD5</color>
+    <color name="CORAL">#FF6F61</color>
 </resources>

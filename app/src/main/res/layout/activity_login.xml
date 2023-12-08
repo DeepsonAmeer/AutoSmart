@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/oysterbay"
+    android:background="@color/blue"
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:background="@drawable/btn_design"
         android:orientation="vertical" />
 
@@ -27,7 +27,7 @@
             android:fontFamily="@font/aldrich"
             android:text="Welcome back"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="34sp" />
 
         <TextView
@@ -37,67 +37,64 @@
             android:fontFamily="@font/aldrich"
             android:text="Login to your account"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/CORAL"
             android:textSize="16sp" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="40dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+        <EditText
+            android:id="@+id/login_email_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/login_corner"
+            android:drawableStart="@drawable/baseline_email_24"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/darkgray"
+            android:ellipsize="end"
             android:hint="Email"
-            android:textColorHint="@color/blue"
-            app:boxBackgroundColor="@color/white"
-            app:boxStrokeColor="@color/blue"
-            app:boxStrokeWidth="0dp"
-            app:hintTextColor="@color/blue"
-            app:startIconDrawable="@drawable/baseline_email_24"
-            app:startIconTint="@color/blue">
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:scrollHorizontally="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/darkgray" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_email_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="20dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+
+        <EditText
+            android:id="@+id/login_pass_edit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/login_corner"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/darkgray"
+            android:ellipsize="end"
             android:hint="Password"
-            android:textColorHint="@color/blue"
-            app:boxBackgroundColor="@color/white"
-            app:boxStrokeColor="@color/blue"
-            app:boxStrokeWidth="0dp"
-            app:endIconMode="password_toggle"
-            app:hintTextColor="@color/blue"
-            app:startIconDrawable="@drawable/baseline_lock_24"
-            app:startIconTint="@color/blue">
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:scrollHorizontally="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/darkgray" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_pass_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:textInputLayoutFocusedRectEnabled="true"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="80dp" />
+            android:layout_height="50dp" />
 
         <Button
             android:id="@+id/Register_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/CORAL"
             android:text="Login"
             android:textColor="@color/white"
             app:strokeColor="@color/white" />
@@ -113,7 +110,7 @@
             android:fontFamily="@font/aldrich"
             android:text="don't have an account?"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/CORAL"
             android:textSize="16sp" />
 
         <TextView
@@ -122,7 +119,7 @@
             android:layout_height="wrap_content"
             android:text="Sign up"
             android:textAlignment="center"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="italic" />
     </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.autosmart;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,9 +12,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import model.Notification;
+import model.Repair;
+import model.RepairModel;
 import model.Services;
 
 /**
@@ -31,6 +49,11 @@ public class RepairFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    FirebaseAuth mAuth;
+    ServiceAdapter adapter;
+    ArrayList<Services> services;
+
+    ProgressDialog progressDialog;
     RecyclerView recyclerView;
 
     public RepairFragment() {
@@ -73,28 +96,69 @@ public class RepairFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(true);
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
+
         recyclerView = view.findViewById(R.id.repair_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ServiceAdapter adapter = new ServiceAdapter(getContext());
-        ArrayList<Services> services = new ArrayList<>();
-
-        Services services1 = new Services();
-        services1.Name = "Toyota";
-        services1.Description = "Engine overheating";
-        services1.Status = "Ongoing";
-        services1.Engineer = "SuperEngineer";
-        services1.DateCreated = "02-02-2023";
-        services.add(services1);
-
-        Services services2 = new Services();
-        services2.Name = "Mercedes Benz";
-        services2.Description = "Making unnecessary sounds, consuming lot of fuel";
-        services2.Status = "Initiated";
-        services2.Engineer = "Jon Snow";
-        services2.DateCreated = "05-10-2023";
-        services.add(services2);
+        adapter = new ServiceAdapter(getContext());
+        services = new ArrayList<>();
         adapter.setServices(services);
         recyclerView.setAdapter(adapter);
-        super.onViewCreated(view, savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
+        getData();
+
+        adapter.notifyDataSetChanged();
+//        super.onViewCreated(view, savedInstanceState);
+    }
+
+    void getData(){
+        FirebaseUser user = mAuth.getCurrentUser();
+        String email = user.getEmail();
+        String url = getResources().getString(R.string.endpoint)+"/api/ServiceRequests/"+email;
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        // Request a string response from the provided URL.
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for(int i=0;i<response.length();i++){
+                            try {
+                                JSONObject repair = response.getJSONObject(i);
+                                String make = repair.getString("make");
+                                String description = repair.getString("description");
+                                String status = "pending";
+                                String date = repair.getString("createdAt");
+                                Services r = new Services();
+                                r.Name = make;
+                                r.Description = description;
+                                r.DateCreated = date;
+                                r.Status = status;
+                                services.add(r);
+
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                        if(progressDialog.isShowing()){
+                            progressDialog.dismiss();
+                        }
+                        //Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(request);
     }
 }

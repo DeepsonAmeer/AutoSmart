@@ -1,5 +1,7 @@
 package com.example.autosmart;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +22,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import model.GuideList;
 import model.Notification;
 
 /**
@@ -42,7 +50,11 @@ public class NotificationFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    FirebaseAuth mAuth;
+    ArrayList<Notification> notifications;
+    NotificationAdapter adapter;
     RecyclerView recyclerView;
+    ProgressDialog progressDialog;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -84,53 +96,73 @@ public class NotificationFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
         recyclerView = view.findViewById(R.id.notification_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        NotificationAdapter adapter = new NotificationAdapter(getContext());
-        ArrayList<Notification> notifications = new ArrayList<>();
+        adapter = new NotificationAdapter(getContext());
+        notifications = new ArrayList<>();
 
+        adapter.setNotification(notifications);
+        recyclerView.setAdapter(adapter);
+        mAuth = FirebaseAuth.getInstance();
+        getData();
+
+
+        adapter.notifyDataSetChanged();
+    }
+    void getData(){
+        FirebaseUser user = mAuth.getCurrentUser();
+        String email = user.getEmail();
+        String url = getResources().getString(R.string.endpoint)+"/api/RecentUpdates/"+email;
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
-
-
-        String url = "";
         // Request a string response from the provided URL.
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Toast.makeText(getContext(), response.toString(), Toast.LENGTH_SHORT).show();
+
+                        for(int i=0;i<response.length();i++){
+                            try {
+                                JSONObject repair = response.getJSONObject(i);
+                                String make = repair.getString("description");
+                                String status = repair.getString("status");
+                                String engineer = repair.getString("createdAt");
+                                Notification n = new Notification();
+                                n.Make = make;
+                                n.Status = status;
+                                n.Engineer = engineer;
+                                notifications.add(n);
+
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                        if(progressDialog.isShowing()){
+                            progressDialog.dismiss();
+                        }
+                        //Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "No internet", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                        Intent i = new Intent(getContext(), Home.class);
+                        startActivity(i);
+                    }
+                },500);
+
             }
         });
-
-
         queue.add(request);
-
-
-        Notification notification = new Notification();
-        notification.Make = "Honda";
-        notification.Engineer = "Engineer@gmail.com";
-        notification.Status = "In Progress";
-
-        Notification notification2 = new Notification();
-        notification2.Make = "Toyota";
-        notification2.Engineer = "John@gmail.com";
-        notification2.Status = "Initialized";
-
-        Notification notification3 = new Notification();
-        notification3.Make = "Audi";
-        notification3.Engineer = "Aamir@gmail.com";
-        notification3.Status = "Completed";
-        notifications.add(notification);
-        notifications.add(notification2);
-        notifications.add(notification3);
-        adapter.setNotification(notifications);
-        recyclerView.setAdapter(adapter);
-        super.onViewCreated(view, savedInstanceState);
     }
 }

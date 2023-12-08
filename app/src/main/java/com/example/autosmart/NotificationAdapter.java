@@ -33,6 +33,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             super(itemView);
             make = itemView.findViewById(R.id.Make_txt);
             status = itemView.findViewById(R.id.status_txt);
+            engineer = itemView.findViewById(R.id.n_date);
             sc = itemView.findViewById(R.id.recycler_linear);
         }
     }
@@ -57,6 +58,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         holder.make.setText(notifications.get(position).getMake());
         holder.status.setText(notifications.get(position).getStatus());
+        holder.engineer.setText(notifications.get(position).getEngineer());
 
     }
 

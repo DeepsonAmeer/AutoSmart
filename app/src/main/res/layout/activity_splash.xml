@@ -10,8 +10,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
 
         <TextView
             android:id="@+id/textView"
@@ -20,8 +23,17 @@
             android:fontFamily="@font/aldrich"
             android:text="AutoSmart"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/CORAL"
             android:textSize="34sp" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Revitilize your ride"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="italic" />
     </LinearLayout>
 
 </RelativeLayout>

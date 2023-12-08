@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blue"
-        android:backgroundTint="#0532A8"
+        android:backgroundTint="@color/blue"
         android:orientation="vertical">
 
         <Space
@@ -53,7 +53,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:text="Hello, John"
-                        android:textColor="@color/white"
+                        android:textColor="@color/CORAL"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -64,7 +64,7 @@
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:text="Choose the service you require"
-                        android:textColor="#FFFDFD"
+                        android:textColor="@color/white"
                         android:textSize="24sp" />
                 </LinearLayout>
 

@@ -23,6 +23,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -30,18 +32,22 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-    EditText name,emal,password,cpassword;
+    FirebaseFirestore db;
+    EditText name,emal,password,cpassword,phone;
     Button register;
     SharedPreferences UserEmail;
     @SuppressLint("ResourceAsColor")
@@ -52,11 +58,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         name = findViewById(R.id.r_name_edit);
         emal = findViewById(R.id.r_email_edit);
+        phone = findViewById(R.id.r_phone_edit);
         password = findViewById(R.id.r_pass_edit);
         cpassword = findViewById(R.id.r_con_edit);
 
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
+
+        db = FirebaseFirestore.getInstance();
 
 
         register = (Button) findViewById(R.id.Register_btn);
@@ -67,7 +76,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                 String userName = emal.getText().toString();
                 String pwd = password.getText().toString();
-                    if(TextUtils.isEmpty(userName) && TextUtils.isEmpty(pwd)){
+                String phoneN = phone.getText().toString();
+                String Uname = name.getText().toString();
+                    if(TextUtils.isEmpty(userName) && TextUtils.isEmpty(pwd) && TextUtils.isEmpty(phoneN) && TextUtils.isEmpty(Uname)){
+
 
                         Toast.makeText(RegisterActivity.this,"Input field not complete.",Toast.LENGTH_SHORT).show();
                     }
@@ -78,12 +90,30 @@ public class RegisterActivity extends AppCompatActivity {
                                 // on below line we are checking if the task is success or not.
                                 if (task.isSuccessful()) {
 
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    String email = user.getEmail();
-                                    String uid = user.getUid();
+
                                     // in on success method we are hiding our progress bar and opening a login activity.
 
+                                    Map<String, Object> users = new HashMap<>();
+                                    users.put("FullName", Uname);
+                                    users.put("Email", userName);
+                                    users.put("Phone", phoneN);
+
+                                    db.collection("users")
+                                            .add(users)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+
+                                                }
+                                            });
+
                                     Toast.makeText(RegisterActivity.this, "User Registered..", Toast.LENGTH_SHORT).show();
+                                    mAuth.signOut();
                                     Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
                                     startActivity(i);
                                     finish();

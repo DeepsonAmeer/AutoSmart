@@ -1,12 +1,24 @@
 package com.example.autosmart;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +35,11 @@ public class ProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FirebaseAuth mAuth;
+    SharedPreferences sharedpreferences;
+
+    Button logout;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -60,5 +77,31 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        FirebaseApp.initializeApp(getContext());
+        mAuth = FirebaseAuth.getInstance();
+        logout = view.findViewById(R.id.profile_btn_logout);
+
+        sharedpreferences = getActivity().getSharedPreferences("myref", Context.MODE_PRIVATE);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+                    // if the user is not null then we are
+                    // opening a main activity on below line.
+                    mAuth.signOut();
+                    sharedpreferences.edit().clear().apply();
+                    Intent i = new Intent(getContext(),LoginActivity.class);
+                    startActivity(i);
+                    requireActivity().finish();
+                }
+            }
+        });
+        super.onViewCreated(view, savedInstanceState);
     }
 }

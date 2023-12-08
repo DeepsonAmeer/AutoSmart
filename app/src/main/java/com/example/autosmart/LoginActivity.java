@@ -28,11 +28,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONArray;
 
@@ -46,7 +50,8 @@ public class LoginActivity extends AppCompatActivity {
     Button lbtn;
     EditText email,password;
     private FirebaseAuth mAuth;
-    SharedPreferences UserEmail;
+    FirebaseFirestore db;
+    SharedPreferences sharedpreferences;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +61,14 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
+        sharedpreferences = getSharedPreferences("myref", Context.MODE_PRIVATE);
         email = (EditText) findViewById(R.id.login_email_edit);
         password = (EditText) findViewById(R.id.login_pass_edit);
         rbtn = (TextView) findViewById(R.id.regi_btn);
         lbtn = (Button) findViewById(R.id.Register_btn);
-        UserEmail = getSharedPreferences("email", Context.MODE_PRIVATE);
+        //UserEmail = getSharedPreferences("email", Context.MODE_PRIVATE);
 
 
         rbtn.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +97,29 @@ public class LoginActivity extends AppCompatActivity {
                         // on below line we are checking if the task is success or not.
                         if (task.isSuccessful()) {
                             // on below line we are hiding our progress bar.
-                            SharedPreferences.Editor editor = UserEmail.edit();
-                            editor.putString("email_key", email.getText().toString()).commit();
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                            db.collection("users")
+                                    .whereEqualTo("Email",userName)
+                                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if(task.isSuccessful()){
+                                                for(QueryDocumentSnapshot queryDocumentSnapshot:task.getResult()){
+                                                    if(queryDocumentSnapshot.getData()!=null){
+                                                        editor.putString("FullName",queryDocumentSnapshot.get("FullName").toString());
+                                                        editor.apply();
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                        }
+                                    });
                             Toast.makeText(LoginActivity.this, "Login Successful..", Toast.LENGTH_SHORT).show();
                             // on below line we are o"pening our mainactivity.
                             Intent i = new Intent(LoginActivity.this, Home.class);

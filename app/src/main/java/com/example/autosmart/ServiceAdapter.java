@@ -21,13 +21,12 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView Name,Description,Status,Engineer,DateCreated;
+        TextView Name,Description,Status,DateCreated;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             Name = itemView.findViewById(R.id.serviceMake);
             Description = itemView.findViewById(R.id.serviceDescription);
             Status = itemView.findViewById(R.id.serviceStatus);
-            Engineer = itemView.findViewById(R.id.serviceEngineer);
             DateCreated = itemView.findViewById(R.id.dateCreated);
         }
     }
@@ -52,7 +51,6 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         holder.Name.setText(services.get(position).getName());
         holder.Description.setText(services.get(position).getDescription());
         holder.Status.setText(services.get(position).getStatus());
-        holder.Engineer.setText(services.get(position).Engineer);
         holder.DateCreated.setText(services.get(position).DateCreated);
     }
 

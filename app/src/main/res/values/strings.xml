@@ -5,4 +5,5 @@
     <string name="comment">Please select a specific service, and kindly provide feedback on the
         associated engineer performance.
     </string>
+    <string name="endpoint">https://142f-102-89-23-45.ngrok-free.app</string>
 </resources>

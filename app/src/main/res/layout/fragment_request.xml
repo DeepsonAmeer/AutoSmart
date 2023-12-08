@@ -61,13 +61,6 @@
                 app:tabTextColor="@color/black">
 
                 <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="All" />
-
-                <com.google.android.material.tabs.TabItem
                     android:id="@+id/repair_tab_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
